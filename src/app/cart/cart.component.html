@@ -1,0 +1,35 @@
+<button nz-button [nzType]="'primary'" routerLink="/catalog" routerLinkActive="active">Back</button>
+<nz-list
+  class="demo-loadmore-list"
+  [nzDataSource]="buysArray"
+  [nzItemLayout]="'horizontal'"
+  [nzLoading]="initLoading"
+  [nzRenderItem]="item"
+>
+<ng-template #item let-item>
+  <nz-list-item 
+  [nzActions]="[editAction, moreAction]">
+    <nz-list-item-meta
+      [nzTitle]="nzTitle"
+      nzAvatar="{{item.pizzaUrl}}"
+      [nzDescription]="nzDescription"
+    >
+      <ng-template #nzTitle>
+        <a>{{ item.pizzaName }}</a>
+      </ng-template>
+
+      <ng-template #nzDescription>
+        &#8377; {{item.prize}}
+      </ng-template>
+
+      <ng-template #editAction><a>Quantity: 1</a></ng-template>
+      <ng-template #moreAction><a (click)="delete(item.pizzaId)"><i nz-icon nzType="delete" nzTheme="outline"></i></a></ng-template>
+
+    </nz-list-item-meta>
+  </nz-list-item>
+</ng-template>
+</nz-list>
+
+<div class="total">
+  <span>Total Amount: &#8377;{{totalAmount}}</span>
+</div>

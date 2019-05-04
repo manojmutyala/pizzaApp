@@ -1,0 +1,21 @@
+<div  nz-row [nzGutter]="8">
+  <div *ngFor="let pizzaItem of pizzaItems; let i = index" nz-col [nzSpan]="8" style="padding-bottom:20px;">
+     <nz-card nzHoverable style="width:320px" [nzCover]="coverTemplate" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+          <nz-card-meta nzTitle={{pizzaItem.pizzaName}}></nz-card-meta>
+      </nz-card>
+      <ng-template #coverTemplate>
+          <img alt="example" src={{pizzaItem.pizzaUrl}} height="350px"/>
+      </ng-template>
+      <ng-template #actionSetting>
+          <i *ngIf="pizzaItem.favorite != true" nz-icon nzType="heart" nzTheme="outline" (click)="onHeartClick(i)"></i>
+          <i *ngIf="pizzaItem.favorite == true" nz-icon nzType="heart" nzTheme="fill" (click)="onHeartClick(i)"></i>
+        </ng-template>
+        <ng-template #actionEdit>
+            &#8377; {{pizzaItem.prize}}
+        </ng-template>
+        <ng-template #actionEllipsis>
+            <button *ngIf="pizzaItem.buy != true" nz-button nzType="primary" (click)="onBuyClick(i)">Buy</button>
+            <button *ngIf="pizzaItem.buy == true" nz-button nzType="damger" (click)="onRemoveClick(i)">Remove</button>
+        </ng-template>
+  </div>
+</div>

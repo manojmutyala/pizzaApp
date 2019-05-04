@@ -1,0 +1,30 @@
+<nz-layout>
+  <nz-sider style="overflow: auto; height: 100vh; position: fixed; left: 0">
+    <div class="logo">PizzaApp</div>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'">
+      <li nz-menu-item>
+        <span><i nz-icon nzType="home" nzTheme="fill"></i><span class="nav-text">Home</span></span>
+      </li>
+      <li nz-menu-item>
+        <span><i nz-icon nzType="setting" nzTheme="fill"></i><span class="nav-text">Acount</span></span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout style="margin-left: 200">
+    <nz-header style="background: #fff; padding:0;">
+      <span style="float: right; padding-right:20px;">
+          1800 2500 1235<i nz-icon nzType="phone" nzTheme="outline"></i>
+          <nz-badge nzCount="{{totalBuys}}" nzShowZero=true>
+              <i routerLink="/cart" routerLinkActive="active" nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+          </nz-badge>
+          <i routerLink="/login" routerLinkActive="active" nz-icon nzType="user" nzTheme="outline"></i>
+      </span>
+    </nz-header>
+    <nz-content style="margin:24px 16px 0;">
+      <div style="display:flex;padding: 24px; background: #fff; margin-left:200px">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer style="text-align: center;margin-left:200px;">PizzaApp ©2019 JPMC Team</nz-footer>
+  </nz-layout>
+</nz-layout>

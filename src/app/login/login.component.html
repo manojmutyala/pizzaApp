@@ -1,0 +1,29 @@
+<form nz-form class="login-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixUser">
+        <input type="text" nz-input placeholder="Username" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixLock">
+        <input type="text" nz-input placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button" [nzType]="'primary'" routerLink="/catalog" routerLinkActive="active">Log in</button>
+    </nz-form-control>
+  </nz-form-item>
+
+
+
+</form>
+<ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
