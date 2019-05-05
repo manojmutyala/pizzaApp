@@ -1,35 +1,88 @@
-<button nz-button [nzType]="'primary'" routerLink="/catalog" routerLinkActive="active">Back</button>
-<nz-list
-  class="demo-loadmore-list"
-  [nzDataSource]="buysArray"
-  [nzItemLayout]="'horizontal'"
-  [nzLoading]="initLoading"
-  [nzRenderItem]="item"
->
-<ng-template #item let-item>
-  <nz-list-item 
-  [nzActions]="[editAction, moreAction]">
-    <nz-list-item-meta
-      [nzTitle]="nzTitle"
-      nzAvatar="{{item.pizzaUrl}}"
-      [nzDescription]="nzDescription"
+
+  <nz-steps [nzCurrent]="current">
+    <nz-step nzTitle="In Progress"></nz-step>
+    <nz-step nzTitle="Payment"></nz-step>
+    <nz-step nzTitle="Finished"></nz-step>
+  </nz-steps>
+  
+  <div class="steps-content">
+    <div *ngIf="index == 'First-content' ">
+      <nz-list
+        class="demo-loadmore-list"
+        [nzDataSource]="buysArray"
+        [nzItemLayout]="'horizontal'"
+        [nzLoading]="initLoading"
+        [nzRenderItem]="item"
+      >
+      <ng-template #item let-item>
+        <nz-list-item 
+        [nzActions]="[editAction, moreAction]">
+          <nz-list-item-meta
+            [nzTitle]="nzTitle"
+            nzAvatar="{{item.pizzaUrl}}"
+            [nzDescription]="nzDescription"
+          >
+            <ng-template #nzTitle>
+              <a>{{ item.pizzaName }}</a>
+            </ng-template>
+
+            <ng-template #nzDescription>
+              &#8377; {{item.prize}}
+            </ng-template>
+
+            <ng-template #editAction>
+              <span>Quantity</span>
+              <button nz-button nzType="primary" [nzSize]="small" nzShape="circle" class="buttons" (click)="addItem(item.pizzaId)"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
+              <span>{{ item.quantity }}</span>
+              <button nz-button nzType="primary" [nzSize]="small" nzShape="circle" class="buttons"  (click)="minusItem(item.pizzaId)"><i nz-icon nzType="minus" nzTheme="outline"></i></button>
+            </ng-template>
+            <ng-template #moreAction><a (click)="delete(item.pizzaId)"><i nz-icon nzType="delete" nzTheme="outline"></i></a></ng-template>
+
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+      </nz-list>
+
+      <div class="total">
+        <span>Total Amount: &#8377;{{totalAmount}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="index == 'Second-content'">
+      <p>Select Payment</p>
+      <nz-select
+      style="width: 200px;"
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="Select a bank"
+      [(ngModel)]="selectedValue"
     >
-      <ng-template #nzTitle>
-        <a>{{ item.pizzaName }}</a>
-      </ng-template>
+      <nz-option nzLabel="ICICI Bank" nzValue="icici"></nz-option>
+      <nz-option nzLabel="State Bank of India" nzValue="sbi"></nz-option>
+      <nz-option nzLabel="Axis Bank" nzValue="axis"></nz-option>
+      <nz-option nzLabel="Andhra Bank" nzValue="andhra"></nz-option>
+      <nz-option nzLabel="HDFC Bank" nzValue="hdfc"></nz-option>
+      <nz-option nzLabel="Kotak Bank" nzValue="kotak"></nz-option>
+      <nz-option nzLabel="Vijaya Bank" nzValue="vijaya"></nz-option>
+      <nz-option nzLabel="IDBI Bank" nzValue="idbi"></nz-option>
+    </nz-select>
+    </div>
 
-      <ng-template #nzDescription>
-        &#8377; {{item.prize}}
-      </ng-template>
-
-      <ng-template #editAction><a>Quantity: 1</a></ng-template>
-      <ng-template #moreAction><a (click)="delete(item.pizzaId)"><i nz-icon nzType="delete" nzTheme="outline"></i></a></ng-template>
-
-    </nz-list-item-meta>
-  </nz-list-item>
-</ng-template>
-</nz-list>
-
-<div class="total">
-  <span>Total Amount: &#8377;{{totalAmount}}</span>
-</div>
+    <div *ngIf="index == 'third-content'" style="text-align: center;">
+        <i nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#52c41a'" style="padding-bottom:20px;font-size:160px;"></i>
+        <p>Payment Sucesfull</p>
+    </div>
+    
+  </div>
+  <div class="steps-action">
+    <button nz-button [nzType]="'primary'" routerLink="/catalog" routerLinkActive="active">Back to Menu</button>
+    <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+      <span>Previous</span>
+    </button>
+    <button nz-button nzType="default" (click)="next()" *ngIf="buysArray.length > 0 && current < 2">
+      <span>Next</span>
+    </button>
+    <button nz-button nzType="primary" routerLink="/catalog" routerLinkActive="active" (click)="done()" *ngIf="current === 2">
+      <span>Done</span>
+    </button>
+  </div>

@@ -5,4 +5,5 @@ export class Pizza {
     prize:number;
     favorite: boolean;
     buy: boolean;
+    quantity: number;
 }

@@ -14,7 +14,7 @@
             &#8377; {{pizzaItem.prize}}
         </ng-template>
         <ng-template #actionEllipsis>
-            <button *ngIf="pizzaItem.buy != true" nz-button nzType="primary" (click)="onBuyClick(i)">Buy</button>
+            <button *ngIf="pizzaItem.buy != true" nz-button nzType="primary" (click)="onBuyClick(i)">Add to Cart</button>
             <button *ngIf="pizzaItem.buy == true" nz-button nzType="damger" (click)="onRemoveClick(i)">Remove</button>
         </ng-template>
   </div>

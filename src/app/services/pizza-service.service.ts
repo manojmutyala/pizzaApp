@@ -19,6 +19,7 @@ export class PizzaServiceService {
       prize: 259,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008523,
@@ -27,6 +28,7 @@ export class PizzaServiceService {
       prize: 129,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008624,
@@ -35,6 +37,7 @@ export class PizzaServiceService {
       prize: 299,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008625,
@@ -43,6 +46,7 @@ export class PizzaServiceService {
       prize: 229,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008626,
@@ -51,6 +55,7 @@ export class PizzaServiceService {
       prize: 429,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008627,
@@ -59,6 +64,7 @@ export class PizzaServiceService {
       prize: 349,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008628,
@@ -67,6 +73,7 @@ export class PizzaServiceService {
       prize: 139,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008629,
@@ -75,6 +82,7 @@ export class PizzaServiceService {
       prize: 89,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
     {
       pizzaId: 1008630,
@@ -83,6 +91,7 @@ export class PizzaServiceService {
       prize: 99,
       favorite: false,
       buy: false,
+      quantity: 1,
     },
   ]
   getPizzas(): Observable<Pizza[]> {
@@ -121,11 +130,40 @@ export class PizzaServiceService {
     console.log(this.buyTotal);
     this.buyTotalNumber.next(this.buyTotal.length);
     this.PIZZA[index].buy = false;
+    this.PIZZA[index].quantity = 1;
+    return of(this.PIZZA);
+  }
+
+  deleteItemAll(): Observable<Pizza[]> {
+    this.buyTotal = [];
+    this.buyTotalNumber.next(this.buyTotal.length);
+    this.PIZZA.forEach((ele,index) => {
+      this.PIZZA[index].buy = false;
+      this.PIZZA[index].quantity = 1;
+    })
     return of(this.PIZZA);
   }
 
   heartClick(index): Observable<Pizza[]> {
     this.PIZZA[index].favorite = true;
     return of(this.PIZZA);
+  }
+
+  addQuantity(pizzaId): Observable<Pizza[]> {
+    this.buyTotal.forEach((ele) => {
+      if(ele.pizzaId == pizzaId) {
+        ele.quantity++;
+      }
+    });
+    return of(this.buyTotal);
+  }
+
+  minusQuantity(pizzaId): Observable<Pizza[]> {
+    this.buyTotal.forEach((ele) => {
+      if(ele.pizzaId == pizzaId) {
+        ele.quantity--;
+      }
+    });
+    return of(this.buyTotal);
   }
 }
